@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -33,15 +34,26 @@ public class GlobalExceptionHandler {
     return buildErrorResponse(ErrorType.DATA_CONFLICT, "Data integrity violation");
   }
 
-  @ExceptionHandler(AccessDeniedException.class)
-  public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex) {
-    return buildErrorResponse(ErrorType.ACCESS_DENIED, "Insufficient permissions");
-  }
-
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
     log.error("Unexpected error: ", ex);
     return buildErrorResponse(ErrorType.INTERNAL_ERROR, "Unexpected error occurred");
+  }
+
+  @ExceptionHandler(JwtAuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleJwtAuthentication(JwtAuthenticationException ex) {
+    return buildErrorResponse(ErrorType.UNAUTHORIZED, "Invalid JWT token");
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorResponse> handleAuthentication(AuthenticationException ex) {
+    return buildErrorResponse(ErrorType.UNAUTHORIZED, "Authentication failed");
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  public ResponseEntity<ErrorResponse> handleAccessDenied(AccessDeniedException ex) {
+    log.warn("Access denied: {}", ex.getMessage());
+    return buildErrorResponse(ErrorType.ACCESS_DENIED, "Access denied");
   }
 
   private ResponseEntity<ErrorResponse> buildErrorResponse(ErrorType errorType, String message) {
