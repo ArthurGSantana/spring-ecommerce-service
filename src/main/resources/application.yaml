@@ -19,3 +19,26 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operationsSorter: method
+    tagsSorter: alpha
+  info:
+    title: E-commerce Service API
+    description: API para gerenciamento de e-commerce
+    version: 1.0.0
+    contact:
+      name: Arthur Santana
+      email: arthurgn.santana@gmail.com
+
+# Configurações JWT
+jwt:
+  secret: 7JU9or21W3WnuZ+QnIu/Ksl6V1uGvfX3E5WvhT+Un2Qn+WXzKsX6GRHuJ+ho7AKt
+  expirationAccessToken: 3600000  # 1 hora em milissegundos
+  expirationRefreshToken: 604800000  # 7 dias em milissegundos
