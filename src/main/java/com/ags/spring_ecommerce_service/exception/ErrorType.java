@@ -1,11 +1,11 @@
 package com.ags.spring_ecommerce_service.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum ErrorType {
   VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "Validation Error"),
   INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid Parameter"),
