@@ -2,6 +2,7 @@ package com.ags.spring_ecommerce_service.controller;
 
 import com.ags.spring_ecommerce_service.dto.UserDto;
 import com.ags.spring_ecommerce_service.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.UUID;
@@ -12,18 +13,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
+@Tag(name = "User", description = "User management operations")
 public class UserController {
   private final UserService userService;
 
   @GetMapping("{id}")
-  @Tag(name = "User", description = "Get user by ID")
+  @Operation(summary = "Get user by ID", description = "Fetch a user by their unique ID")
   public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
     var user = userService.getUserById(id);
     return ResponseEntity.ok(user);
   }
 
   @PostMapping
-  @Tag(name = "User", description = "Create a new user")
+  @Operation(summary = "Create a new user", description = "Register a new user in the system")
   public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
     var createdUser = userService.createUser(userDto);
     return ResponseEntity.ok(createdUser);
