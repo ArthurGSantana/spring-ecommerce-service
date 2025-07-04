@@ -24,6 +24,13 @@ public class UserDto {
   @Email(message = "Email should be valid")
   private String email;
 
+  @NotBlank(message = "Password is required")
+  @Pattern(
+      regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
+      message =
+          "Password must be at least 8 characters long and contain at least one letter and one number")
+  private String password;
+
   @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Phone number should be valid")
   private String phone;
 
