@@ -10,12 +10,24 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+  @ExceptionHandler(Exception.class)
+  public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
+    log.error("Unexpected error: ", ex);
+    return buildErrorResponse(ErrorType.INTERNAL_ERROR, "Unexpected error occurred");
+  }
+
+  @ExceptionHandler(NotFoundException.class)
+  public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException ex) {
+    return buildErrorResponse(ErrorType.NOT_FOUND, ex.getMessage());
+  }
 
   @ExceptionHandler(ValidationException.class)
   public ResponseEntity<ErrorResponse> handleValidation(ValidationException ex) {
@@ -32,15 +44,14 @@ public class GlobalExceptionHandler {
     return buildErrorResponse(ErrorType.INVALID_PARAMETER, ex.getMessage());
   }
 
+  @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+  public ResponseEntity<ErrorResponse> handleArgumentTypeMismatch(MethodArgumentTypeMismatchException ex) {
+    return buildErrorResponse(ErrorType.INVALID_PARAMETER, ex.getMessage());
+  }
+
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ResponseEntity<ErrorResponse> handleDataIntegrity(DataIntegrityViolationException ex) {
     return buildErrorResponse(ErrorType.DATA_CONFLICT, "Data integrity violation");
-  }
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<ErrorResponse> handleGeneral(Exception ex) {
-    log.error("Unexpected error: ", ex);
-    return buildErrorResponse(ErrorType.INTERNAL_ERROR, "Unexpected error occurred");
   }
 
   @ExceptionHandler(JwtAuthenticationException.class)
