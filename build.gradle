@@ -74,6 +74,11 @@ spotless {
 	}
 }
 
+test {
+	useJUnitPlatform()
+	systemProperty 'mockito.mock-maker', 'inline'
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
