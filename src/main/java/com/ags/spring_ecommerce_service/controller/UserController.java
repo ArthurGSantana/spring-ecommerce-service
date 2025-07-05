@@ -30,4 +30,18 @@ public class UserController {
     var createdUser = userService.createUser(userDto);
     return ResponseEntity.ok(createdUser);
   }
+
+  @PutMapping("{id}")
+  @Operation(summary = "Update user by ID", description = "Update an existing user's details")
+  public ResponseEntity<UserDto> updateUser(@PathVariable UUID id, @RequestBody UserDto userDto) {
+    var updatedUser = userService.updateUser(id, userDto);
+    return ResponseEntity.ok(updatedUser);
+  }
+
+  @DeleteMapping("{id}")
+  @Operation(summary = "Delete user by ID", description = "Remove a user from the system")
+  public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+    userService.deleteUserById(id);
+    return ResponseEntity.noContent().build();
+  }
 }
