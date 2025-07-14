@@ -1,4 +1,4 @@
-package com.ags.spring_ecommerce_service.config;
+package com.ags.spring_ecommerce_service.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.ags.spring_ecommerce_service.config;
+package com.ags.spring_ecommerce_service.config.swagger;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
