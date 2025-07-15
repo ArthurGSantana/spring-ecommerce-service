@@ -6,5 +6,18 @@ option java_package="com.ags.spring_ecommerce_service.grpc";
 option  java_outer_classname="ProductProto";
 
 service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+}
 
+message CreateProductRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+}
+
+message CreateProductResponse {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
 }
