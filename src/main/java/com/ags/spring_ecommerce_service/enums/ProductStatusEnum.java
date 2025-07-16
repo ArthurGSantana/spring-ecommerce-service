@@ -6,9 +6,9 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ProductStatusEnum {
-    AVAILABLE("AVAILABLE"),
-    UNAVAILABLE("UNAVAILABLE"),
-    DISCONTINUED("DISCONTINUED");
+  AVAILABLE("AVAILABLE"),
+  UNAVAILABLE("UNAVAILABLE"),
+  DISCONTINUED("DISCONTINUED");
 
-    private final String statusName;
+  private final String statusName;
 }
