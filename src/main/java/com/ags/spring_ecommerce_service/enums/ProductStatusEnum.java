@@ -11,4 +11,13 @@ public enum ProductStatusEnum {
   DISCONTINUED("DISCONTINUED");
 
   private final String statusName;
+
+  public static ProductStatusEnum from(String statusName) {
+    for (ProductStatusEnum status : ProductStatusEnum.values()) {
+      if (status.getStatusName().equalsIgnoreCase(statusName)) {
+        return status;
+      }
+    }
+    throw new IllegalArgumentException("Unknown status: " + statusName);
+  }
 }
