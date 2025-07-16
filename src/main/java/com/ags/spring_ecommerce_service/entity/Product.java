@@ -2,9 +2,9 @@ package com.ags.spring_ecommerce_service.entity;
 
 import com.ags.spring_ecommerce_service.enums.ProductStatusEnum;
 import jakarta.persistence.*;
-import lombok.*;
-
+import java.math.BigDecimal;
 import java.util.UUID;
+import lombok.*;
 
 @Entity
 @Table(name = "products")
@@ -19,6 +19,9 @@ public class Product extends BaseEntity {
   @Column(name = "id", nullable = false)
   private UUID id;
 
+  @Column(name = "sku", nullable = false, unique = true)
+  private String sku;
+
   @Column(name = "name", nullable = false)
   private String name;
 
@@ -26,7 +29,7 @@ public class Product extends BaseEntity {
   private String description;
 
   @Column(name = "price", nullable = false)
-  private Double price;
+  private BigDecimal price;
 
   @Column(name = "stock", nullable = false)
   private Integer stock;
