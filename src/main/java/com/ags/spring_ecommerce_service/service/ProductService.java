@@ -57,7 +57,6 @@ public class ProductService {
     product.setDescription(productDto.getDescription());
     product.setPrice(productDto.getPrice());
     product.setStock(productDto.getStock());
-    product.setStatus(productDto.getStatus());
 
     product = productRepository.save(product);
 

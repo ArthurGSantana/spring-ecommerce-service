@@ -13,7 +13,7 @@ import org.springframework.grpc.server.service.GrpcService;
 
 @GrpcService
 @RequiredArgsConstructor
-public class ProductGrpcService extends ProductServiceGrpc.ProductServiceImplBase {
+public class ProductGrpcServer extends ProductServiceGrpc.ProductServiceImplBase {
   private final ProductService productService;
 
   @Override
@@ -64,7 +64,6 @@ public class ProductGrpcService extends ProductServiceGrpc.ProductServiceImplBas
               .description(request.getDescription())
               .price(BigDecimal.valueOf(request.getPrice()))
               .stock(request.getStock())
-              .status(ProductStatusEnum.from(request.getStatus()))
               .build();
 
       var product = productService.updateProduct(productDto);
