@@ -8,7 +8,6 @@ import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import java.math.BigDecimal;
 import java.util.UUID;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.grpc.server.service.GrpcService;
 
@@ -93,8 +92,7 @@ public class ProductGrpcService extends ProductServiceGrpc.ProductServiceImplBas
   }
 
   @Override
-  public void deleteProduct(
-      DeleteProductRequest request, StreamObserver<Empty> responseObserver) {
+  public void deleteProduct(DeleteProductRequest request, StreamObserver<Empty> responseObserver) {
     try {
       productService.deleteProduct(UUID.fromString(request.getId()));
 

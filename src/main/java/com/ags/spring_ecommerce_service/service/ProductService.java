@@ -6,11 +6,10 @@ import com.ags.spring_ecommerce_service.exception.NotFoundException;
 import com.ags.spring_ecommerce_service.repository.ProductRepository;
 import com.ags.spring_ecommerce_service.utils.SkuGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -49,8 +48,10 @@ public class ProductService {
   public ProductDto updateProduct(ProductDto productDto) {
     log.info("Updating product with sku {}", productDto.getSku());
 
-    var product = productRepository.findById(productDto.getId())
-        .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND_MESSAGE));
+    var product =
+        productRepository
+            .findById(productDto.getId())
+            .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND_MESSAGE));
 
     product.setName(productDto.getName());
     product.setDescription(productDto.getDescription());
@@ -68,8 +69,10 @@ public class ProductService {
   public void deleteProduct(UUID id) {
     log.info("Deleting product with id {}", id);
 
-    var product = productRepository.findById(id)
-        .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND_MESSAGE));
+    var product =
+        productRepository
+            .findById(id)
+            .orElseThrow(() -> new NotFoundException(PRODUCT_NOT_FOUND_MESSAGE));
 
     productRepository.delete(product);
 

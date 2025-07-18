@@ -13,9 +13,18 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class GrpcAuthenticationFilter implements ServerInterceptor {
   @Override
-  public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> serverCall, Metadata metadata, ServerCallHandler<ReqT, RespT> serverCallHandler) {
+  public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(
+      ServerCall<ReqT, RespT> serverCall,
+      Metadata metadata,
+      ServerCallHandler<ReqT, RespT> serverCallHandler) {
     String token = metadata.get(Metadata.Key.of("authorization", Metadata.ASCII_STRING_MARSHALLER));
     log.info("token para avaliação {}", token);
     return serverCallHandler.startCall(serverCall, metadata);
+    // retorno padrão para o caso de token inválido
+    //    serverCall.close(
+    //        io.grpc.Status.UNAUTHENTICATED.withDescription("Token inválido"),
+    //        new Metadata()
+    //    );
+    //    return new ServerCall.Listener<ReqT>() {};
   }
 }
