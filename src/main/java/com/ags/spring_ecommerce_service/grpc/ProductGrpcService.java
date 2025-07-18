@@ -3,7 +3,6 @@ package com.ags.spring_ecommerce_service.grpc;
 import com.ags.spring_ecommerce_service.dto.ProductDto;
 import com.ags.spring_ecommerce_service.enums.ProductStatusEnum;
 import com.ags.spring_ecommerce_service.service.ProductService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.protobuf.Empty;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
@@ -17,7 +16,6 @@ import org.springframework.grpc.server.service.GrpcService;
 @RequiredArgsConstructor
 public class ProductGrpcService extends ProductServiceGrpc.ProductServiceImplBase {
   private final ProductService productService;
-  private final ObjectMapper objectMapper;
 
   @Override
   public void createProduct(
