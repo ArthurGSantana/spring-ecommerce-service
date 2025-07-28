@@ -4,7 +4,6 @@ import com.ags.spring_ecommerce_service.dto.UserDto;
 import com.ags.spring_ecommerce_service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class UserController {
 
   @PostMapping
   @Operation(summary = "Create a new user", description = "Register a new user in the system")
-  public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
+  public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
     var createdUser = userService.createUser(userDto);
     return ResponseEntity.ok(createdUser);
   }
