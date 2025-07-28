@@ -2,10 +2,9 @@ package com.ags.spring_ecommerce_service.entity;
 
 import com.ags.spring_ecommerce_service.enums.OrderStatusEnum;
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.List;
 import java.util.UUID;
+import lombok.*;
 
 @Entity
 @Table(name = "orders")
