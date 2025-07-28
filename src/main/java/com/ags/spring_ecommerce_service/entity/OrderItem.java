@@ -1,9 +1,8 @@
 package com.ags.spring_ecommerce_service.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.UUID;
+import lombok.*;
 
 @Entity
 @Table(name = "order_items")
