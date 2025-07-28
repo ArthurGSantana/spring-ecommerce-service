@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-public class Address extends BaseEntity{
+public class Address extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id", nullable = false)
