@@ -3,6 +3,8 @@ package com.ags.spring_ecommerce_service.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "addresses")
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class Address extends BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(name = "id", nullable = false)
-  private String id;
+  private UUID id;
 
   @Column(name = "street", nullable = false)
   private String street;
