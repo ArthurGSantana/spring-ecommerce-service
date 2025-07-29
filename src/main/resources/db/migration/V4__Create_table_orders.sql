@@ -4,5 +4,7 @@ CREATE TABLE orders (
     user_id UUID NOT NULL,
     shipping_address_id UUID NOT NULL,
     CONSTRAINT fk_order_user FOREIGN KEY (user_id) REFERENCES users(id),
-    CONSTRAINT fk_order_address FOREIGN KEY (shipping_address_id) REFERENCES addresses(id)
+    CONSTRAINT fk_order_address FOREIGN KEY (shipping_address_id) REFERENCES addresses(id),
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP
 );

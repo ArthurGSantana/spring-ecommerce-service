@@ -6,5 +6,7 @@ CREATE TABLE addresses (
     state VARCHAR(100) NOT NULL,
     zip_code VARCHAR(20) NOT NULL,
     user_id UUID NOT NULL,
-    CONSTRAINT fk_address_user FOREIGN KEY (user_id) REFERENCES users(id)
+    CONSTRAINT fk_address_user FOREIGN KEY (user_id) REFERENCES users(id),
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP
 );
