@@ -25,6 +25,17 @@ spring:
     enabled: true
     baseline-on-migrate: true
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      # Serializador para a chave da mensagem.
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Serializador para o valor da mensagem.
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      auto-offset-reset: earliest
+    topics:
+      order-create: order-create
+
 springdoc:
   api-docs:
     path: /v3/api-docs
