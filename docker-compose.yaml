@@ -55,16 +55,16 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
 
   kafka-ui:
-    image: provectuslabs/kafka-ui:latest # Ou use uma versão específica como provectuslabs/kafka-ui:0.7.0
+    image: provectuslabs/kafka-ui:latest
     hostname: kafka-ui
     container_name: kafka-ui
     ports:
-      - "8085:8080" # Porta para acessar a UI no seu navegador
+      - "8085:8080"
     depends_on:
-      - kafka # Certifique-se de que o Kafka esteja pronto antes da UI iniciar
+      - kafka
     environment:
-      KAFKA_CLUSTERS_0_NAME: local-kafka-cluster # Nome do seu cluster na UI
-      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092 # Endereço do seu broker Kafka DENTRO da rede Docker
+      KAFKA_CLUSTERS_0_NAME: local-kafka-cluster # Nome do cluster na UI
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: broker:29092 # Endereço do broker Kafka DENTRO da rede Docker
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181 # Endereço do Zookeeper DENTRO da rede Docker (opcional, mas bom ter)
       KAFKA_CLUSTERS_0_READONLY: "false" # Permite operações de escrita (criar/deletar tópicos, etc.)
       # KAFKA_CLUSTERS_0_SCHEMA_REGISTRY: http://schema-registry:8081 # Opcional: Se estiver usando Schema Registry
