@@ -29,10 +29,20 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       # Serializador para a chave da mensagem.
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       # Serializador para o valor da mensagem.
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-      auto-offset-reset: earliest
+#      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+    listener:
+      # Propriedades do listener Spring Kafka (relacionadas ao @KafkaListener)
+      ack-mode: RECORD # Modo de commit do offset.
+        # RECORD: Commita o offset após cada registro ser processado com sucesso.
+      # BATCH: Commita o offset após todos os registros do batch serem processados.
+      # MANUAL: Commita manualmente (exige KafkaMessageListenerContainer.AckMode.MANUAL)
     topics:
       order-create: order-create
 
