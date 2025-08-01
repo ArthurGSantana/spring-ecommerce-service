@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequestDto {
+  private UUID id;
   private UUID userId;
   private UUID shippingAddressId;
   private List<OrderItemRequestDto> items;

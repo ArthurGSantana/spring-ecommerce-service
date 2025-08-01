@@ -27,7 +27,7 @@ public class Order extends BaseEntity {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
   private List<OrderItem> items;
 
   @ManyToOne(fetch = FetchType.LAZY)

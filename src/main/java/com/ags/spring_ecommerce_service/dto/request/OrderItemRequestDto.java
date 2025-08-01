@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItemRequestDto {
+  private UUID id;
   private UUID productId;
   private Integer quantity;
 }
