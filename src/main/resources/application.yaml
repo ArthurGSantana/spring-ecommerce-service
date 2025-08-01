@@ -45,6 +45,7 @@ spring:
       # MANUAL: Commita manualmente (exige KafkaMessageListenerContainer.AckMode.MANUAL)
     topics:
       order-create: order-create
+      order-update: order-update
 
 springdoc:
   api-docs:
