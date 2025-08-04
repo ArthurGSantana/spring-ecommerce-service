@@ -14,6 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - ecommerce-network
+    command: postgres -c wal_level=logical
 
   redis:
     image: redis:7-alpine
@@ -35,6 +36,8 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ecommerce-network
 
   kafka:
     image: confluentinc/cp-kafka:7.6.1
@@ -53,6 +56,39 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    networks:
+      - ecommerce-network
+
+  kafka-connect:
+    image: debezium/connect:2.5
+    hostname: kafka-connect
+    container_name: ecommerce-kafka-connect
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      BOOTSTRAP_SERVERS: broker:29092
+      GROUP_ID: connect-cluster
+      CONFIG_STORAGE_TOPIC: connect-configs
+      OFFSET_STORAGE_TOPIC: connect-offsets
+      STATUS_STORAGE_TOPIC: connect-status
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      # Configurações específicas do Debezium
+      CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_LOG4J_ROOT_LOGLEVEL: INFO
+      CONNECT_PLUGIN_PATH: /kafka/connect
+    networks:
+      - ecommerce-network
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -67,9 +103,13 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: broker:29092 # Endereço do broker Kafka DENTRO da rede Docker
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181 # Endereço do Zookeeper DENTRO da rede Docker (opcional, mas bom ter)
       KAFKA_CLUSTERS_0_READONLY: "false" # Permite operações de escrita (criar/deletar tópicos, etc.)
+      KAFKA_CLUSTERS_0_KAFKA_CONNECT_0_NAME: debezium-connect
+      KAFKA_CLUSTERS_0_KAFKA_CONNECT_0_ADDRESS: http://kafka-connect:8083
       # KAFKA_CLUSTERS_0_SCHEMA_REGISTRY: http://schema-registry:8081 # Opcional: Se estiver usando Schema Registry
       # KAFKA_CLUSTERS_0_KAFKA_CONNECT: http://kafka-connect:8083 # Opcional: Se estiver usando Kafka Connect
       # KAFKA_CLUSTERS_0_JMX_PORT: 9999 # Opcional: Para monitoramento JMX avançado se o Kafka tiver JMX habilitado
+    networks:
+      - ecommerce-network
 
 volumes:
   postgres_data:
