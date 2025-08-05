@@ -2,9 +2,8 @@ package com.ags.spring_ecommerce_service.handlers;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Data;
-
 import java.util.UUID;
+import lombok.Data;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @Data

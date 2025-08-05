@@ -22,8 +22,8 @@ public class OrderConsumer extends BaseConsumer {
   private static final String ERROR_PROCESSING_MESSAGE = "Error processing message: {}";
 
   /**
-   * Consumidor para criar pedidos a partir de mensagens Kafka.
-   * Utiliza RetryableTopic para retries automáticos e DLQ.
+   * Consumidor para criar pedidos a partir de mensagens Kafka. Utiliza RetryableTopic para retries
+   * automáticos e DLQ.
    *
    * @param message Mensagem recebida do tópico Kafka.
    */
@@ -56,8 +56,8 @@ public class OrderConsumer extends BaseConsumer {
   }
 
   /**
-   * Consumidor para atualizar pedidos a partir de mensagens Kafka.
-   * Utiliza RetryableTopic para retries automáticos e DLQ.
+   * Consumidor para atualizar pedidos a partir de mensagens Kafka. Utiliza RetryableTopic para
+   * retries automáticos e DLQ.
    *
    * @param message Mensagem recebida do tópico Kafka.
    */
@@ -71,7 +71,7 @@ public class OrderConsumer extends BaseConsumer {
       attempts = "3", // 1 tentativa inicial + 2 retries (default)
       backoff = @Backoff(delay = 2000),
       dltTopicSuffix = ".DLT" // Define o sufixo do tópico DLQ
-  )
+      )
   @KafkaListener(topics = "${spring.kafka.topics.order-update}", groupId = "order-update-group")
   public void orderUpdateConsumer(@Nullable String message) {
     validateMessage(message);

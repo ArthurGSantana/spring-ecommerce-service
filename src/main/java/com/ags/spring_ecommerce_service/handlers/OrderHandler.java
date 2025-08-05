@@ -16,8 +16,7 @@ public class OrderHandler {
 
   @KafkaListener(topics = "${spring.kafka.topics.order-handler}", groupId = "order-handler-group")
   public void handleOrder(String message) throws JsonProcessingException {
-    EventData<OrderData> eventData = objectMapper.readValue(message, new TypeReference<>() {
-    });
+    EventData<OrderData> eventData = objectMapper.readValue(message, new TypeReference<>() {});
 
     OrderData order = eventData.getBefore();
     OrderData after = eventData.getAfter();

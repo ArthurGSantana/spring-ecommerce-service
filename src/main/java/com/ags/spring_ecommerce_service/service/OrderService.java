@@ -67,7 +67,8 @@ public class OrderService {
             .orElseThrow(() -> new NotFoundException("Order not found"));
 
     if (order.getStatus() != OrderStatusEnum.PENDING) {
-      log.warn("Order with ID {} cannot be updated because it is not in PENDING status", order.getId());
+      log.warn(
+          "Order with ID {} cannot be updated because it is not in PENDING status", order.getId());
       throw new RuntimeException("Order cannot be updated because it is not in PENDING status");
     }
 
