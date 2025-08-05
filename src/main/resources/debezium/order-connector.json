@@ -1,0 +1,23 @@
+//curl -X POST http://localhost:8083/connectors \
+//  -H "Content-Type: application/json" \
+//  -d '{
+//    "name": "orders-connector",
+//    "config": {
+//      <body of the JSON configuration>
+//    }
+//  }'
+
+{
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+  "tombstones.on.delete": "false",
+  "database.user": "ecommerce",
+  "database.dbname": "ecommerce",
+  "topic.prefix": "postgres",
+  "database.hostname": "postgres",
+  "database.password": "ecommerce",
+  "name": "orders-connector",
+  "database.server.name": "ecommerce-db",
+  "table.include.list": "public.orders",
+  "database.port": "5432",
+  "plugin.name": "pgoutput"
+}
