@@ -17,7 +17,9 @@ public class OrderHandler {
   private final ObjectMapper objectMapper;
 
   @KafkaListener(topics = "${spring.kafka.topics.order-handler}", groupId = "order-handler-group")
-  public void handleOrder(@Nullable String message, @Header("kafka_receivedMessageKey") String keyJson) throws JsonProcessingException {
+  public void handleOrder(
+      @Nullable String message, @Header("kafka_receivedMessageKey") String keyJson)
+      throws JsonProcessingException {
     EventData<OrderData> eventData = objectMapper.readValue(message, new TypeReference<>() {});
 
     log.info("Received key from Kafka: {}", keyJson);
